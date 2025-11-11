@@ -35,12 +35,15 @@ Su diseño limpio, modo oscuro y animaciones sutiles acompañan una lógica prec
    git clone https://github.com/Ubbee/calculadora.git
 
 2. Entrá a la carpeta del proyecto:
+   ```bash
    cd calculadora
 
-3. Instalá las dependencias:
+4. Instalá las dependencias:
+   ```bash
    npm install
 
-4. Iniciá el servidor de desarrollo:
+6. Iniciá el servidor de desarrollo:
+   ```bash
    npm run dev
 
-5. Abrí la aplicación en tu navegador
+8. Abrí la aplicación en tu navegador
