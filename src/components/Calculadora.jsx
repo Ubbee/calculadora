@@ -90,12 +90,12 @@ function reductor(estado, accion) {
     }
     case 'agregar': {
       const payload = accion.valor
-      // permitir '-' como signo negativo al empezar un número nuevo
+
       if (payload === '-') {
         if (estado.sobreescribir || estado.ultimoFueOperador || estado.actual === '0') {
           return { ...estado, actual: '-', sobreescribir: false, ultimoFueOperador: false }
         }
-        // si no estamos en un contexto de nuevo número, interpretarlo como resta
+
         return { ...estado, previo: estado.actual === '-' ? '0' : estado.actual, actual: '0', operador: '−', sobreescribir: false, ultimoFueOperador: True }
       }
       if (estado.sobreescribir) {
@@ -244,7 +244,7 @@ export default function Calculadora() {
     return () => window.removeEventListener('keydown', manejarTeclado)
   }, [manejarTeclado])
 
-  // cargar historial de localStorage
+
   useEffect(() => {
     try {
       const guardado = localStorage.getItem('calc_historial_v1')
@@ -257,7 +257,7 @@ export default function Calculadora() {
     } catch { }
   }, [])
 
-  // guardar historial en localStorage
+
   useEffect(() => {
     try {
       localStorage.setItem('calc_historial_v1', JSON.stringify(estado.historial))
@@ -286,7 +286,8 @@ export default function Calculadora() {
           <Boton etiqueta="AC" className="tecla tecla--accion" onClick={borrarTodo} ariaEtiqueta="Limpiar todo" />
           <Boton etiqueta="±" className="tecla tecla--accion" onClick={cambiarSigno} ariaEtiqueta="Cambiar signo" />
           <Boton etiqueta="%" className="tecla tecla--accion" onClick={porcentaje} ariaEtiqueta="Porcentaje" />
-          <Boton etiqueta="÷" className="tecla tecla--operacion" onClick={() => elegirOperador('÷')} ariaEtiqueta="Dividir" />
+
+          <Boton etiqueta="⌫" className="tecla tecla--accion" onClick={borrarUno} ariaEtiqueta="Borrar" />
 
           <Boton etiqueta="7" className="tecla" onClick={() => agregarDigito('7')} />
           <Boton etiqueta="8" className="tecla" onClick={() => agregarDigito('8')} />
@@ -296,16 +297,17 @@ export default function Calculadora() {
           <Boton etiqueta="4" className="tecla" onClick={() => agregarDigito('4')} />
           <Boton etiqueta="5" className="tecla" onClick={() => agregarDigito('5')} />
           <Boton etiqueta="6" className="tecla" onClick={() => agregarDigito('6')} />
-          <Boton etiqueta="−" className="tecla tecla--operacion" onClick={() => elegirOperador('−')} ariaEtiqueta="Restar" />
+          <Boton etiqueta="÷" className="tecla tecla--operacion" onClick={() => elegirOperador('÷')} ariaEtiqueta="Dividir" />
+
 
           <Boton etiqueta="1" className="tecla" onClick={() => agregarDigito('1')} />
           <Boton etiqueta="2" className="tecla" onClick={() => agregarDigito('2')} />
           <Boton etiqueta="3" className="tecla" onClick={() => agregarDigito('3')} />
           <Boton etiqueta="+" className="tecla tecla--operacion" onClick={() => elegirOperador('+')} ariaEtiqueta="Sumar" />
 
-          <Boton etiqueta="⌫" className="tecla tecla--accion" onClick={borrarUno} ariaEtiqueta="Borrar" />
-          <Boton etiqueta="0" className="tecla tecla--cero" onClick={() => agregarDigito('0')} />
           <Boton etiqueta="." className="tecla" onClick={() => agregarDigito('.')} ariaEtiqueta="Punto decimal" />
+          <Boton etiqueta="0" className="tecla tecla--cero" onClick={() => agregarDigito('0')} />
+          <Boton etiqueta="−" className="tecla tecla--operacion" onClick={() => elegirOperador('−')} ariaEtiqueta="Restar" />
           <Boton etiqueta="=" className="tecla tecla--igual" onClick={calcular} ariaEtiqueta="Igual" />
         </div>
       </section>
